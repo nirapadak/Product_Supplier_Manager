@@ -31,14 +31,6 @@ app.use(cors());
 readdirSync('./src/routes').map((file) => app.use('/api/v1', require(`./src/routes/${file}`)));
 
 
-mongoose
-  .connect(process.env.DATABASE_URL)
-  .then(() => {
-    console.log(`database Connection established successful`);
-  })
-  .catch((error)=>{console.log(error);})
-
-
 
 app.use("/", (req, res) => {
   res.status(404).json({
@@ -50,7 +42,15 @@ app.use("/", (req, res) => {
 
 
 
-
-app.listen(Port, () => {
-  console.log(`Application listening on Port localhost:/${Port}`);
+mongoose.connect(process.env.DATABASE_URL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
 })
+.then(() => {
+  console.log("✅ MongoDB connected!");
+  // Start your server only after connection
+  app.listen(Port, () => console.log(`Server running on port ${Port}`));
+})
+.catch((err) => {
+  console.error("❌ MongoDB connection failed:", err);
+});
