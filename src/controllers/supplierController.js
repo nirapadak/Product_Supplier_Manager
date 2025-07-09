@@ -21,3 +21,19 @@ exports.deleteSupplier = async (req, res) => {
   await Supplier.findByIdAndDelete(req.params.id);
   res.json({ success: true });
 };
+
+
+exports.getSupplierbyId = async (req, res) => {
+  const OneSupplier = await Supplier.findById(req.params.id);
+
+  if (OneSupplier) {
+    res.json(OneSupplier);
+  } else {
+    res.json({
+      "success": false,
+      "massage": "Supplier not found"
+    })
+  }
+
+
+};
