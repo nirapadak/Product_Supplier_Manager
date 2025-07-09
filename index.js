@@ -32,7 +32,7 @@ readdirSync('./src/routes').map((file) => app.use('/api/v1', require(`./src/rout
 
 
 mongoose
-  .connect(process.env.DATA_PATH)
+  .connect(process.env.DATABASE_URL)
   .then(() => {
     console.log(`database Connection established successful`);
   })
