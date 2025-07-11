@@ -40,7 +40,7 @@ exports.placeOrder = async (req, res) => {
 exports.getOrders = async (req, res) => {
   const orders = await Order.find()
     .populate('productId')
-    // .populate('supplierId');
+    .populate('supplierId');
   res.json(orders);
 };
 
@@ -68,3 +68,4 @@ exports.updateOrder = async (req, res) => {
   const order = await Order.findByIdAndUpdate(req.params.id, req.body, { new: true });
   res.json(order);
 };
+
